@@ -101,3 +101,9 @@ h1{
     
     color:#111;
 }
+
+@media only screen and (max-width:600px){
+    .container{
+        height:58vh;
+    }
+}
