@@ -24,29 +24,36 @@ const users= {};
 // Will listen to every user
 io.on('connection', socket=>{
    
-
+    
     /// For individul user- event
     socket.on('new-user-joined', name =>{
+        
         users[socket.id] = name;
         
 
-       
+        
         // When someone joins, send notification to all
         socket.broadcast.emit('user-joined', name);
+        
+        
     });
 
     // Anyone sends any message
     socket.on('send', message => {
+       
         socket.broadcast.emit('receive', {message: message, name : users[socket.id]});
+      
     })
 
     //If anyone disconnects
     socket.on('disconnect', name => {
         // Emitting event
+       
         socket.broadcast.emit("left",  users[socket.id]);
 
         delete users[socket.id];
     })
+    
 });
 
 
