@@ -34,7 +34,9 @@ io.on('connection', socket=>{
         
         // When someone joins, send notification to all
         socket.broadcast.emit('user-joined', name);
-        
+
+        io.emit("user-list", users);
+         
         
     });
 
@@ -52,6 +54,8 @@ io.on('connection', socket=>{
         socket.broadcast.emit("left",  users[socket.id]);
 
         delete users[socket.id];
+
+        io.emit("user-list", users);
     })
     
 });
